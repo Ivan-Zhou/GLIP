@@ -24,6 +24,9 @@ def load(url):
     return image
 
 def imshow(img, caption, filepath=None):
+    if img is None:
+        print("No image to save!")
+        return
     print("Saving image to {}".format(filepath))
     plt.imshow(img[:, :, [2, 1, 0]])
     plt.axis("off")
@@ -68,17 +71,31 @@ glip_demo = GLIPDemo(
 print("Done!")
 print("Time: {}".format(time() - start))
 
-
-start = time()
 image = load('http://farm4.staticflickr.com/3693/9472793441_b7822c00de_z.jpg')
+
+print("Warm up...")
+start = time()
+caption = "sofa"
+glip_demo.run_on_web_image(image, caption, 0.5)
+print("Time: {}".format(time() - start))
+
+print("Test #1:")
+start = time()
 caption = 'sofa . remote . dog . person . car . sky . plane .' # the caption can also be the simple concatonation of some random categories.
 result, _ = glip_demo.run_on_web_image(image, caption, 0.5)
 print("Time: {}".format(time() - start))
 imshow(result, caption, filepath='result.jpg')
 
+print("Test #2:")
 start = time()
-image = load('http://farm4.staticflickr.com/3693/9472793441_b7822c00de_z.jpg')
 caption = 'bobble heads on top of the shelf'
 result, _ = glip_demo.run_on_web_image(image, caption, 0.5)
 print("Time: {}".format(time() - start))
-imshow(result, caption)
+imshow(result, caption, filepath='result.jpg')
+
+print("Test #3:")
+start = time()
+caption = 'human standing besides the shelf '
+result, _ = glip_demo.run_on_web_image(image, caption, 0.5)
+print("Time: {}".format(time() - start))
+imshow(result, caption, filepath='result.jpg')
