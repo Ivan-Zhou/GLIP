@@ -131,9 +131,9 @@ class GLIPDemo(object):
         top_predictions = self._post_process_fixed_thresh(predictions)
         return top_predictions
 
-    def run_on_web_image(self, 
-            original_image, 
-            original_caption, 
+    def run_on_web_image(self,
+            original_image,
+            original_caption,
             thresh=0.5,
             custom_entity = None,
             alpha = 0.0):
@@ -149,9 +149,9 @@ class GLIPDemo(object):
             result = self.overlay_mask(result, top_predictions)
         return result, top_predictions
 
-    def visualize_with_predictions(self, 
-            original_image, 
-            predictions, 
+    def visualize_with_predictions(self,
+            original_image,
+            predictions,
             thresh=0.5,
             alpha=0.0,
             box_pixel=3,
@@ -186,11 +186,9 @@ class GLIPDemo(object):
             tokens_positive = []
             seperation_tokens = " . "
             for word in original_caption:
-                
                 tokens_positive.append([len(caption_string), len(caption_string) + len(word)])
                 caption_string += word
                 caption_string += seperation_tokens
-            
             tokenized = self.tokenizer([caption_string], return_tensors="pt")
             tokens_positive = [tokens_positive]
 
@@ -344,7 +342,7 @@ class GLIPDemo(object):
                     y -= text_offset
 
             cv2.putText(
-                image, s, (int(x), int(y)-text_offset_original), cv2.FONT_HERSHEY_SIMPLEX, text_size, (self.color, self.color, self.color), text_pixel, cv2.LINE_AA
+                image, s, (int(x), int(y)-text_offset_original), cv2.FONT_HERSHEY_SIMPLEX, text_size, (255, 0, 0), text_pixel, cv2.LINE_AA
             )
             previous_locations.append((int(x), int(y)))
 
